@@ -17,11 +17,10 @@ public class TestingSpringDemoApplication {
 		ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
 		Table longTable=(Table) context.getBean("longTable");
 		Table shortTable=(Table) context.getBean("shortTable");
-		if(type=="longTable") {
+		if(type.equals("long")) {
 			System.out.println(longTable.showDetails());
 		}else {
 			System.out.println(shortTable.showDetails());
 		}
 	}
-
 }
