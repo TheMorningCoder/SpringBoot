@@ -10,27 +10,53 @@ public class TaxApplication {
 
 	public static void main(String[] args) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		Tax incomeTax = (Tax) context.getBean("incomeTax");
-		Tax propertyTax = (Tax) context.getBean("propertyTax");
-		
 		Scanner sc = new Scanner(System.in);
-		String type;
+		int choice=0;
 		int amount;
+		char ch='n';
 		
-		System.out.println("Which tax do you want to calculate?");
-		type = sc.nextLine().trim().toLowerCase();
-		
-		if (type.equals("income")) {
-			System.out.println("Enter the Taxable Amount");
-			amount = sc.nextInt();
-			incomeTax.setTaxableAmount(amount);
-			System.out.println(incomeTax.getTaxAmount());
-		} else {
-			System.out.println("Enter the Taxable Amount");
-			amount = sc.nextInt();
-			propertyTax.setTaxableAmount(amount);
-			System.out.println(incomeTax.getTaxAmount());
+		while(choice!=3) {
+			System.out.println("\nWhat do you want to do?\n1.Calculate Income Tax\n2.Calculate Property Tax\n3.Exit");
+			choice=sc.nextInt();
+			if(choice==1) {
+				System.out.println("Calculating Income Tax");
+				Tax incomeTax = (Tax) context.getBean("incomeTax");
+				if(incomeTax.isTaxPayed()) {
+					System.out.println("Income Tax is already paid");
+				}else {
+					System.out.println("Enter taxable amount.");
+					amount = sc.nextInt();
+					incomeTax.setTaxableAmount(amount);
+					incomeTax.calculateTaxAmount();
+					System.out.println("Your tax amount is:"+ incomeTax.getTaxAmount());
+					System.out.println("Do you want to pay Income Tax?(Y/N)");
+					ch=sc.next().charAt(0);
+					if(ch=='y'||ch=='Y') 
+						incomeTax.payTax();	
+				}
+			}
+			else if(choice==2) {
+				System.out.println("Calculating Property Tax");
+				Tax propertyTax = (Tax) context.getBean("propertyTax");
+				if(propertyTax.isTaxPayed()) {
+					System.out.println("Property Tax is already paid");
+				}else {
+					System.out.println("Enter taxable amount.");
+					amount = sc.nextInt();
+					propertyTax.setTaxableAmount(amount);
+					propertyTax.calculateTaxAmount();
+					System.out.println("Your tax amount is:"+ propertyTax.getTaxAmount());
+					System.out.println("Do you want to pay Income Tax?(Y/N)");
+					ch=sc.next().charAt(0);
+					if(ch=='y'||ch=='Y') 
+						propertyTax.payTax();	
+				}
+			}else if(choice==3){
+				System.out.println();
+				System.exit(0);
+			}
 		}
+		
 	}
 
 }

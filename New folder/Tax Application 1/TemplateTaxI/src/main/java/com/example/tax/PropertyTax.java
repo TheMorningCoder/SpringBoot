@@ -21,7 +21,6 @@ public class PropertyTax implements Tax{
 
 	@Override
 	public double getTaxAmount() {
-		calculateTaxAmount();
 		return taxAmount;
 	}
 
