@@ -24,9 +24,12 @@ public class TransactionService {
 
     public Map<String, List<Map<String, Object>>> getTransactions(String accountNumber, String status) {
         if ("ALL".equalsIgnoreCase(status)) {
-            CompletableFuture<Map<String, Object>> successTransactions = CompletableFuture.supplyAsync(() -> backendServer1Client.getSuccessTransactions(accountNumber));
-            CompletableFuture<Map<String, Object>> failureTransactions = CompletableFuture.supplyAsync(() -> backendServer2Client.getFailureTransactions(accountNumber));
-            CompletableFuture<Map<String, Object>> pendingTransactions = CompletableFuture.supplyAsync(() -> backendServer3Client.getPendingTransactions(accountNumber));
+            CompletableFuture<Map<String, Object>> successTransactions = CompletableFuture.supplyAsync(() -> 
+            backendServer1Client.getSuccessTransactions(accountNumber));
+            CompletableFuture<Map<String, Object>> failureTransactions = CompletableFuture.supplyAsync(() -> 
+            backendServer2Client.getFailureTransactions(accountNumber));
+            CompletableFuture<Map<String, Object>> pendingTransactions = CompletableFuture.supplyAsync(() -> 
+            backendServer3Client.getPendingTransactions(accountNumber));
 
             CompletableFuture.allOf(successTransactions, failureTransactions, pendingTransactions).join();
 
