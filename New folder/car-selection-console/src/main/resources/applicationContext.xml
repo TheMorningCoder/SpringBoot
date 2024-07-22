@@ -3,9 +3,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="normalTyre" class="com.infinityautos.car_selection_console.NormalTyre"></bean>
+	<bean id="sportsTyre" class="com.infinityautos.car_selection_console.SportsTyre"></bean>
+	<bean id="heavyTyre" class="com.infinityautos.car_selection_console.HeavyTyre"></bean>
 
-    <bean id="normalCar" class="com.infinityautos.car_selection_console.NormalCar"/>
-    <bean id="sportsCar" class="com.infinityautos.car_selection_console.SportsCar"/>
-    <bean id="truck" class="com.infinityautos.car_selection_console.Truck"/>
+    <bean id="normalCar" class="com.infinityautos.car_selection_console.NormalCar">
+		<constructor-arg ref="normalTyre"></constructor-arg>
+	</bean>
+    <bean id="sportsCar" class="com.infinityautos.car_selection_console.SportsCar">
+		<constructor-arg ref="sportsTyre"></constructor-arg>
+	</bean>
+    <bean id="truck" class="com.infinityautos.car_selection_console.Truck">
+		<constructor-arg ref="heavyTyre"></constructor-arg>
+	</bean>
 
 </beans>
