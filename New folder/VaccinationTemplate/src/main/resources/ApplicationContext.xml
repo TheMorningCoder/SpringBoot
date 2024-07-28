@@ -10,55 +10,55 @@
     <bean id="TimeAndLocation" class="com.example.Vaccination.TimeAndLocation"/>
     
     <bean id="selfCovid" class="com.example.Vaccination.Self">
-		<constructor-arg ref="Covid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Covid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="selfPolio" class="com.example.Vaccination.Self">
-		<constructor-arg ref="Polio"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Polio"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="selfTyphoid" class="com.example.Vaccination.Self">
-		<constructor-arg ref="Typhoid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Typhoid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	
 	<bean id="spouseCovid" class="com.example.Vaccination.Spouse">
-		<constructor-arg ref="Covid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Covid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="spousePolio" class="com.example.Vaccination.Spouse">
-		<constructor-arg ref="Polio"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Polio"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="spouseTyphoid" class="com.example.Vaccination.Spouse">
-		<constructor-arg ref="Typhoid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Typhoid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	
 	<bean id="fatherCovid" class="com.example.Vaccination.Father">
-		<constructor-arg ref="Covid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Covid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="fatherPolio" class="com.example.Vaccination.Father">
-		<constructor-arg ref="Polio"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Polio"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="fatherTyphoid" class="com.example.Vaccination.Father">
-		<constructor-arg ref="Typhoid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Typhoid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	
 	<bean id="motherCovid" class="com.example.Vaccination.Mother">
-		<constructor-arg ref="Covid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Covid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="motherPolio" class="com.example.Vaccination.Mother">
-		<constructor-arg ref="Polio"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Polio"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	<bean id="motherTyphoid" class="com.example.Vaccination.Mother">
-		<constructor-arg ref="Typhoid"></constructor-arg>
-		<constructor-arg ref="TimeAndLocation"></constructor-arg>
+		<property name="vaccine" ref="Typhoid"></property>
+		<property name="timeAndLocation" ref="TimeAndLocation"></property>
 	</bean>
 	
     

@@ -25,11 +25,14 @@ public class Spouse implements User {
 	TimeAndLocation timeAndLocation;
 	Vaccine vaccine;
 	
-	public Spouse(TimeAndLocation timeAndLocation, Vaccine vaccine) {
+	public void setTimeAndLocation(TimeAndLocation timeAndLocation){
 		this.timeAndLocation=timeAndLocation;
-		this.vaccine=vaccine;
 	}
-	
+
+    public void setVaccine(Vaccine vaccine){
+    	this.vaccine=vaccine;
+    }
+		
 	@Override
 	public Vaccine getVaccineDetails() {
 		return vaccine;

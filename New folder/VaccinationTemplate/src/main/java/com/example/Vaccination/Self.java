@@ -26,10 +26,13 @@ public class Self implements User {
 	TimeAndLocation timeAndLocation;
 	Vaccine vaccine;
 	
-	public Self(TimeAndLocation timeAndLocation, Vaccine vaccine) {
+	public void setTimeAndLocation(TimeAndLocation timeAndLocation){
 		this.timeAndLocation=timeAndLocation;
-		this.vaccine=vaccine;
 	}
+
+    public void setVaccine(Vaccine vaccine){
+    	this.vaccine=vaccine;
+    }
 	
 	@Override
 	public Vaccine getVaccineDetails() {
