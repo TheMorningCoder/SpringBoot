@@ -1,13 +1,19 @@
 package com.example.weather_forecast.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class LocationResponse {
-    private String Key;
+
+    @JsonProperty("Key")
+    private String key;
+
+    // Other fields can be added if necessary
 
     public String getKey() {
-        return Key;
+        return key;
     }
 
     public void setKey(String key) {
-        this.Key = key;
+        this.key = key;
     }
 }
