@@ -1,6 +1,6 @@
 package com.example.weather_forecast.service;
 
-import com.example.weather_forecast.model.WeatherResponse;
+import com.example.weather_forecast.model.AccuWeatherDataModel;
 import com.example.weather_forecast.model.LocationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +13,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class AccuWeatherServiceImpl implements AccuWeatherService {
 
     private static final Logger logger = LoggerFactory.getLogger(AccuWeatherServiceImpl.class);
-    private final String apiKey = "Diaydrk5OA5ts1puv4Oetvc3RXzv72uE";
+    private final String apiKey = "CHzh1GeQUpLUcCpV60QM0woO4aOmrnrj";
     private final String locationUrlTemplate = "https://dataservice.accuweather.com/locations/v1/cities/search";
     private final String weatherUrlTemplate = "https://dataservice.accuweather.com/currentconditions/v1/";
 
     @Override
-    public WeatherResponse getWeather(String city, String zip, String countryCode) {
+    public AccuWeatherDataModel getWeather(String city, String zip, String countryCode) {
         RestTemplate restTemplate = new RestTemplate();
         String locationUrl = UriComponentsBuilder.fromHttpUrl(locationUrlTemplate)
                 .queryParam("apikey", apiKey)
@@ -33,7 +33,7 @@ public class AccuWeatherServiceImpl implements AccuWeatherService {
                 String locationKey = locationResponse.getKey();
                 
                 // Fetch weather data using the location key
-                WeatherResponse weatherResponse = getWeatherByLocationKey(locationKey);
+                AccuWeatherDataModel weatherResponse = getWeatherByLocationKey(locationKey);
                 return weatherResponse;
             } else {
                 logger.error("No results found for city: " + city);
@@ -45,7 +45,7 @@ public class AccuWeatherServiceImpl implements AccuWeatherService {
         }
     }
 
-    private WeatherResponse getWeatherByLocationKey(String locationKey) {
+    private AccuWeatherDataModel getWeatherByLocationKey(String locationKey) {
         RestTemplate restTemplate = new RestTemplate();
         String weatherUrl = UriComponentsBuilder.fromHttpUrl(weatherUrlTemplate + locationKey)
                 .queryParam("apikey", apiKey)
@@ -55,7 +55,7 @@ public class AccuWeatherServiceImpl implements AccuWeatherService {
        
 
         try {
-            WeatherResponse[] weatherResponses = restTemplate.getForObject(weatherUrl, WeatherResponse[].class);
+            AccuWeatherDataModel[] weatherResponses = restTemplate.getForObject(weatherUrl, AccuWeatherDataModel[].class);
             if (weatherResponses != null && weatherResponses.length > 0) {
                 return weatherResponses[0];
             } else {

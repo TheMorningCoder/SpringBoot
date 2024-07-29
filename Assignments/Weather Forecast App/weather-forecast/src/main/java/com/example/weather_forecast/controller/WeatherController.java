@@ -1,6 +1,8 @@
 package com.example.weather_forecast.controller;
 
-import com.example.weather_forecast.model.WeatherResponse;
+import com.example.weather_forecast.model.AccuWeatherDataModel;
+import com.example.weather_forecast.model.AgrregateWeatherResponse;
+import com.example.weather_forecast.model.OpenWeatherDataModel;
 import com.example.weather_forecast.service.AccuWeatherService;
 import com.example.weather_forecast.service.OpenWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,29 +22,29 @@ public class WeatherController {
     private OpenWeatherService openWeatherService;
 
     @GetMapping("/weather")
-    public WeatherResponse getWeather(@RequestParam String city, @RequestParam String zip, @RequestParam String countryCode) {
-        CompletableFuture<WeatherResponse> accuWeatherFuture = CompletableFuture.supplyAsync(() -> accuWeatherService.getWeather(city, zip, countryCode));
-        CompletableFuture<WeatherResponse> openWeatherFuture = CompletableFuture.supplyAsync(() -> openWeatherService.getWeather(zip, countryCode));
+    public AgrregateWeatherResponse getWeather(@RequestParam String city, @RequestParam String zip, @RequestParam String countryCode) {
+        CompletableFuture<AccuWeatherDataModel> accuWeatherFuture = CompletableFuture.supplyAsync(() -> accuWeatherService.getWeather(city, zip, countryCode));
+        CompletableFuture<OpenWeatherDataModel> openWeatherFuture = CompletableFuture.supplyAsync(() -> openWeatherService.getWeather(zip, countryCode));
 
         CompletableFuture.allOf(accuWeatherFuture, openWeatherFuture).join();
 
-        WeatherResponse accuWeather = accuWeatherFuture.join();
-        WeatherResponse openWeather = openWeatherFuture.join();
+        AccuWeatherDataModel accuWeather = accuWeatherFuture.join();
+        OpenWeatherDataModel openWeather = openWeatherFuture.join();
 
         // Aggregate responses
-        WeatherResponse aggregatedResponse = new WeatherResponse();
+        AgrregateWeatherResponse aggregatedResponse = new AgrregateWeatherResponse();
         aggregatedResponse.setWeatherText(accuWeather.getWeatherText());
         aggregatedResponse.setHasPrecipitation(accuWeather.isHasPrecipitation());
         aggregatedResponse.setPrecipitationType(accuWeather.getPrecipitationType());
         aggregatedResponse.setIsDayTime(accuWeather.isDayTime());
         aggregatedResponse.setTemperature(accuWeather.getTemperature());
-        aggregatedResponse.setFeelsLike(openWeather.getFeelsLike());
-        aggregatedResponse.setPressure(openWeather.getPressure());
-        aggregatedResponse.setHumidity(openWeather.getHumidity());
+        aggregatedResponse.setFeelsLike(openWeather.getMain().getFeelsLike());
+        aggregatedResponse.setPressure(openWeather.getMain().getPressure());
+        aggregatedResponse.setHumidity(openWeather.getMain().getHumidity());
         aggregatedResponse.setVisibility(openWeather.getVisibility());
         aggregatedResponse.setWind(openWeather.getWind());
-        aggregatedResponse.setSunrise(openWeather.getSunrise());
-        aggregatedResponse.setSunset(openWeather.getSunset());
+        aggregatedResponse.setSunrise(openWeather.getSys().getSunrise());
+        aggregatedResponse.setSunset(openWeather.getSys().getSunset());
 
         return aggregatedResponse;
     }

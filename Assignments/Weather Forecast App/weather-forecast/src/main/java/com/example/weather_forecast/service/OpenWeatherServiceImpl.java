@@ -1,7 +1,7 @@
 package com.example.weather_forecast.service;
 
 
-import com.example.weather_forecast.model.WeatherResponse;
+import com.example.weather_forecast.model.OpenWeatherDataModel;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,10 +12,10 @@ public class OpenWeatherServiceImpl implements OpenWeatherService {
     private final String urlTemplate = "http://api.openweathermap.org/data/2.5/weather?zip={zip},{countryCode}&appid={apiKey}";
 
     @Override
-    public WeatherResponse getWeather(String zip, String countryCode) {
+    public OpenWeatherDataModel getWeather(String zip, String countryCode) {
         RestTemplate restTemplate = new RestTemplate();
         String url = urlTemplate.replace("{zip}", zip).replace("{countryCode}", countryCode).replace("{apiKey}", apiKey);
-        WeatherResponse response = restTemplate.getForObject(url, WeatherResponse.class);
+        OpenWeatherDataModel response = restTemplate.getForObject(url, OpenWeatherDataModel.class);
         return response;
     }
 }

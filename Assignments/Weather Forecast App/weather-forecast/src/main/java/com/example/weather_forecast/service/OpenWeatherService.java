@@ -1,8 +1,9 @@
 package com.example.weather_forecast.service;
 
 
-import com.example.weather_forecast.model.WeatherResponse;
+import com.example.weather_forecast.model.OpenWeatherDataModel;
+
 
 public interface OpenWeatherService {
-    WeatherResponse getWeather(String zip, String countryCode);
+    OpenWeatherDataModel getWeather(String zip, String countryCode);
 }
