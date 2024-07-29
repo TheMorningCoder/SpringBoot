@@ -2,6 +2,7 @@ package com.example.weather_forecast.model;
 
 
 public class WeatherResponse {
+	private String key;
     private String weatherText;
     private boolean hasPrecipitation;
     private String precipitationType;
@@ -112,7 +113,15 @@ public class WeatherResponse {
         this.sunset = sunset;
     }
 
-    // Nested classes
+    public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	// Nested classes
     public static class Temperature {
         private double value;
         private String unit;
