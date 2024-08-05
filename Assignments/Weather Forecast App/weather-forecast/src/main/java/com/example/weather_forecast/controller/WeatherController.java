@@ -25,11 +25,18 @@ public class WeatherController {
     public AgrregateWeatherResponse getWeather(@RequestParam String city, @RequestParam String zip, @RequestParam String countryCode) {
         CompletableFuture<AccuWeatherDataModel> accuWeatherFuture = CompletableFuture.supplyAsync(() -> accuWeatherService.getWeather(city, zip, countryCode));
         CompletableFuture<OpenWeatherDataModel> openWeatherFuture = CompletableFuture.supplyAsync(() -> openWeatherService.getWeather(zip, countryCode));
+        
 
         CompletableFuture.allOf(accuWeatherFuture, openWeatherFuture).join();
+/*This line ensures that the main thread waits until both accuWeatherFuture and 
+openWeatherFuture are complete before proceeding.
+*/
+
 
         AccuWeatherDataModel accuWeather = accuWeatherFuture.join();
         OpenWeatherDataModel openWeather = openWeatherFuture.join();
+//After both tasks have completed, the results are retrieved from accuWeatherFuture and openWeatherFuture.
+        
 
         // Aggregate responses
         AgrregateWeatherResponse aggregatedResponse = new AgrregateWeatherResponse();

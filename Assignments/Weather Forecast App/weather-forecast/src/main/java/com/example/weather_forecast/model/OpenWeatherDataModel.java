@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class OpenWeatherDataModel {
-
+	
+	// this annotation used to map JSON property names to Java field name
     @JsonProperty("coord")
     private Coord coord;
 

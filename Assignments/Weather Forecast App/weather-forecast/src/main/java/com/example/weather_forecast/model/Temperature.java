@@ -3,6 +3,8 @@ package com.example.weather_forecast.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Temperature {
+	
+	// this annotation used to map JSON property names to Java field name
         @JsonProperty("Metric")
         private Metric metric;
 

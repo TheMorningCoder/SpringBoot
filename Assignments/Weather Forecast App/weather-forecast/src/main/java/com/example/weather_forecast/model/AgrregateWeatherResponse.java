@@ -4,7 +4,8 @@ import com.example.weather_forecast.model.OpenWeatherDataModel.Wind;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AgrregateWeatherResponse {
-
+	
+	// this annotation used to map JSON property names to Java field name
     @JsonProperty("LocalObservationDateTime")
     private String localObservationDateTime;
 
