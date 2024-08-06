@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DealCategoryService {
@@ -20,9 +21,12 @@ public class DealCategoryService {
 
     public DealCategory getDealsByCategory(String categoryName) {
         // Fetch the DealCategory by name
-        DealCategory dealCategory = dealCategoryRepository.findByCategoryName(categoryName);
-        if (dealCategory == null) {
-            return new DealCategory(categoryName, List.of());
+        Optional<DealCategory> optionalDealCategory = dealCategoryRepository.findByCategoryName(categoryName);
+        DealCategory dealCategory;
+        if (optionalDealCategory.isPresent()) {
+            dealCategory = optionalDealCategory.get();
+        } else {
+            dealCategory = new DealCategory(categoryName, List.of());
         }
 
         // Fetch the items by category

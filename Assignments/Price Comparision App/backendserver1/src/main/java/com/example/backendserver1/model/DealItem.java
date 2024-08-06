@@ -1,43 +1,52 @@
 package com.example.backendserver1.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/*
-The DealItem class is a JPA entity so that it can be persisted in the database and managed by 
-the JPA repository. To properly manage the relationship between DealCategory and DealItem, 
-I included a reference back to the DealCategory class. 
-*/
-
-
 @Entity
 public class DealItem {
+
     @Id
     private String itemid;
+
     private String productTitle;
+
     private String size;
+
     private String brand;
+
     private String imageUrl;
+
     private BigDecimal originalPrice;
+
     private double discountPercentage;
+
     private BigDecimal discountAmount;
+
     private BigDecimal price;
+
     private String priceTreatment;
+
     private int stock;
+
     private LocalDateTime dealStartDate;
+
     private LocalDateTime dealEndDate;
 
     @ManyToOne
     @JoinColumn(name = "dealCategory_id")
+    @JsonBackReference
     private DealCategory dealCategory;
 
     // Default constructor
     public DealItem() {}
 
     // Parameterized constructor
-    public DealItem(String itemid, String productTitle, String size, String brand, String imageUrl, BigDecimal originalPrice,
-                    double discountPercentage, BigDecimal discountAmount, BigDecimal price, String priceTreatment, int stock,
+    public DealItem(String itemid, String productTitle, String size, String brand, String imageUrl,
+                    BigDecimal originalPrice, double discountPercentage, BigDecimal discountAmount,
+                    BigDecimal price, String priceTreatment, int stock,
                     LocalDateTime dealStartDate, LocalDateTime dealEndDate) {
         this.itemid = itemid;
         this.productTitle = productTitle;

@@ -11,12 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-/*
-The DealCategory is saved first to ensure it has a valid ID.
-The DealItem objects are created and associated with the DealCategory.
-The DealItem objects are then saved using the dealItemRepository.
-*/
+import java.util.Optional;
 
 @Configuration
 public class DataInitializer {
@@ -30,14 +25,19 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner loadData() {
         return args -> {
-            // Create DealCategory
-            DealCategory jeansCategory = new DealCategory();
-            jeansCategory.setCategoryName("Jeans");
+            // Check if the category already exists to avoid redundant data
+            Optional<DealCategory> existingCategory = dealCategoryRepository.findByCategoryName("Jeans");
+            DealCategory jeansCategory;
+            if (existingCategory.isPresent()) {
+                jeansCategory = existingCategory.get();
+            } else {
+                // Create and save DealCategory
+                jeansCategory = new DealCategory();
+                jeansCategory.setCategoryName("Jeans");
+                jeansCategory = dealCategoryRepository.save(jeansCategory);
+            }
 
-            // Save DealCategory first to ensure it has an ID
-            dealCategoryRepository.save(jeansCategory);
-
-            // Create DealItem objects
+            // Create DealItem objects with unique IDs
             DealItem item1 = new DealItem(
                 "123456789",
                 "Blue Levis Jeans",
@@ -57,7 +57,7 @@ public class DataInitializer {
 
             DealItem item2 = new DealItem(
                 "981235678",
-                "Black Men Slim Fir Mid Rise Jeans",
+                "Black Men Slim Fit Mid Rise Jeans",
                 "32",
                 "Louis Philippe Jeans",
                 "https://i.ebayimg.com/images/g/~**********N/s-l225.jpg",
@@ -72,8 +72,14 @@ public class DataInitializer {
             );
             item2.setDealCategory(jeansCategory);
 
-            // Save DealItems
-            dealItemRepository.saveAll(Arrays.asList(item1, item2));
+            // Check for existing DealItems to avoid duplicates
+            if (!dealItemRepository.existsById(item1.getItemid())) {
+                dealItemRepository.save(item1);
+            }
+
+            if (!dealItemRepository.existsById(item2.getItemid())) {
+                dealItemRepository.save(item2);
+            }
         };
     }
 }

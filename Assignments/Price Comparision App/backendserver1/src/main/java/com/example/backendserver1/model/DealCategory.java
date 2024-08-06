@@ -1,17 +1,20 @@
 package com.example.backendserver1.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
 public class DealCategory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String categoryName;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "dealCategory_id")
+    @OneToMany(mappedBy = "dealCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<DealItem> dealItems;
 
     // Default constructor
