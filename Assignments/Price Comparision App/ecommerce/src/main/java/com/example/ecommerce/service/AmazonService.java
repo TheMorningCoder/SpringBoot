@@ -1,9 +1,9 @@
 package com.example.ecommerce.service;
 
 import com.example.ecommerce.model.DealItem;
+import com.example.ecommerce.model.ResponseWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -20,8 +20,9 @@ public class AmazonService {
         return webClient.get()
                 .uri("/backendserver1/amazon/deals/{categoryName}", categoryName)
                 .retrieve()
-                .bodyToFlux(DealItem.class)
-                .collectList()
+                .bodyToMono(ResponseWrapper.class)
+                .map(ResponseWrapper::getDealItems)
+                .doOnNext(deals -> System.out.println("Amazon Service fetched deals: " + deals))
                 .toFuture();
     }
 }

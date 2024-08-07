@@ -1,9 +1,13 @@
 package com.example.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class ResponseWrapper {
+    @JsonProperty("categoryName")
     private String categoryName;
+
+    @JsonProperty("dealItems")
     private List<DealItem> dealItems;
 
     // Getters

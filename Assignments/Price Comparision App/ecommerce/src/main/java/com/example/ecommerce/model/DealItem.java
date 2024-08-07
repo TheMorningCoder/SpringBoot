@@ -1,16 +1,39 @@
 package com.example.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DealItem {
+    @JsonProperty("itemid")
     private String itemId;
+
+    @JsonProperty("productTitle")
     private String productTitle;
+
+    @JsonProperty("size")
     private String size;
+
+    @JsonProperty("brand")
     private String brand;
+
+    @JsonProperty("imageUrl")
     private String imageUrl;
+
+    @JsonProperty("originalPrice")
     private double originalPrice;
+
+    @JsonProperty("discountPercentage")
     private double discountPercentage;
+
+    @JsonProperty("price")
     private double price;
+
+    @JsonProperty("stock")
     private int stock;
+
+    @JsonProperty("dealStartDate")
     private String dealStartDate;
+
+    @JsonProperty("dealEndDate")
     private String dealEndDate;
 
     // Constructor
@@ -29,10 +52,9 @@ public class DealItem {
     }
 
     public DealItem() {
-		
-	}
+    }
 
-	// Getters
+    // Getters
     public String getItemId() {
         return itemId;
     }
@@ -120,5 +142,16 @@ public class DealItem {
 
     public void setDealEndDate(String dealEndDate) {
         this.dealEndDate = dealEndDate;
+    }
+
+    @Override
+    public String toString() {
+        return "DealItem{" +
+                "productTitle='" + productTitle + '\'' +
+                ", stock=" + stock +
+                ", dealStartDate='" + dealStartDate + '\'' +
+                ", dealEndDate='" + dealEndDate + '\'' +
+                ", price=" + price +
+                '}';
     }
 }
