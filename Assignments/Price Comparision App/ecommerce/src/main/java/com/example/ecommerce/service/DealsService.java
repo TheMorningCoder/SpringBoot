@@ -106,7 +106,7 @@ public class DealsService {
 
     private List<DealItem> findBestDeals(List<DealItem> allDeals) {
         // Logic to find the best deals based on price, discount, etc.
-        // Example: Find the deal with the lowest price for each unique item.
+        // Find the deal with the lowest price for each unique item.
         return allDeals.stream()
                 .collect(Collectors.groupingBy(DealItem::getItemId))
                 .values()
