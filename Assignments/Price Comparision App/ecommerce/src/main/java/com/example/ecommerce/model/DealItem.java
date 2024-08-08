@@ -3,6 +3,8 @@ package com.example.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class DealItem {
+	public static final String YELLOW = "\033[0;33m"; 
+	public static final String RESET = "\033[0m";
     @JsonProperty("itemid")
     private String itemId;
 
@@ -146,12 +148,12 @@ public class DealItem {
 
     @Override
     public String toString() {
-        return "DealItem{" +
-                "productTitle='" + productTitle + '\'' +
-                ", stock=" + stock +
-                ", dealStartDate='" + dealStartDate + '\'' +
-                ", dealEndDate='" + dealEndDate + '\'' +
-                ", price=" + price +
-                '}';
+        return "\nDealItem{" +
+                YELLOW+"\n  productTitle='" + productTitle + '\'' +RESET+
+                "\n  stock=" + stock +
+                "\n  dealStartDate='" + dealStartDate + '\'' +
+                "\n  dealEndDate='" + dealEndDate + '\'' +
+                YELLOW+"\n  price=" + price +RESET+
+                "\n}\n";
     }
 }

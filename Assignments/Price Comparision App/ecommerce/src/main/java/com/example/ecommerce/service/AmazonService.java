@@ -22,7 +22,7 @@ public class AmazonService {
                 .retrieve()
                 .bodyToMono(ResponseWrapper.class)
                 .map(ResponseWrapper::getDealItems)
-                .doOnNext(deals -> System.out.println("Amazon Service fetched deals: " + deals))
+                //.doOnNext(deals -> System.out.println("Amazon Service fetched deals: " + deals))
                 .toFuture();
     }
 }

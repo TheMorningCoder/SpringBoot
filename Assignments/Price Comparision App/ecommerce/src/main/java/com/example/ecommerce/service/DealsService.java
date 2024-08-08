@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
 public class DealsService {
+	
+	
 
     @Autowired
     private AmazonService amazonService;
@@ -55,10 +58,11 @@ public class DealsService {
                     } catch (Exception e) {
                         System.err.println("Error fetching deals from Walmart: " + e.getMessage());
                     }
-
-                    System.out.println("Amazon Deals: " + amazonDeals);
-                    System.out.println("eBay Deals: " + ebayDeals);
-                    System.out.println("Walmart Deals: " + walmartDeals);
+                    
+                   
+                    System.out.println("Amazon Deals: " + amazonDeals.toString());
+                    System.out.println("eBay Deals: " + ebayDeals.toString());
+                    System.out.println("Walmart Deals: " + walmartDeals.toString());
 
                     // Initialize a mutable list
                     List<DealItem> allValidDeals = new ArrayList<>();
@@ -81,8 +85,10 @@ public class DealsService {
                                 .collect(Collectors.toList()));
                     }
 
+                    System.out.println("\n\n");
                     System.out.println("Valid deals count: " + allValidDeals.size());
                     System.out.println("Valid deals: " + allValidDeals);
+                  
 
                     return allValidDeals;
                 })
@@ -105,15 +111,30 @@ public class DealsService {
     }
 
     private List<DealItem> findBestDeals(List<DealItem> allDeals) {
-        // Logic to find the best deals based on price, discount, etc.
-        // Find the deal with the lowest price for each unique item.
-        return allDeals.stream()
+        // Create a list to store the best deals
+        List<DealItem> bestDeals = new ArrayList<>();
+
+        // Group deals by itemId and find the deal with the lowest price for each itemId
+        allDeals.stream()
                 .collect(Collectors.groupingBy(DealItem::getItemId))
-                .values()
-                .stream()
-                .map(dealItems -> dealItems.stream()
-                        .min((deal1, deal2) -> Double.compare(deal1.getPrice(), deal2.getPrice()))
-                        .orElse(null))
-                .collect(Collectors.toList());
+                .forEach((itemId, dealItems) -> {
+                    DealItem bestDeal = dealItems.stream()
+                            .min(Comparator.comparingDouble(DealItem::getPrice))
+                            .orElse(null);
+                    if (bestDeal != null) {
+                        bestDeals.add(bestDeal);
+                    }
+                });
+
+        // Display the best deals
+        bestDeals.forEach(deal -> 
+            System.out.println("Best deal for itemId " + deal.getItemId() + ": " + deal.getPrice())
+        );
+
+        // Return the list of best deals
+        return bestDeals;
     }
+
+
+
 }

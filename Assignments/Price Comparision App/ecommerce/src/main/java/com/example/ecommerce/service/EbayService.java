@@ -22,7 +22,7 @@ public class EbayService {
                 .retrieve()
                 .bodyToMono(ResponseWrapper.class)
                 .map(ResponseWrapper::getDealItems)
-                .doOnNext(deals -> System.out.println("Ebay Service fetched deals: " + deals))
+                //.doOnNext(deals -> System.out.println("Ebay Service fetched deals: " + deals))
                 .toFuture();
     }
 }
