@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -109,31 +112,50 @@ public class DealsService {
         }
         return isValid;
     }
-
     private List<DealItem> findBestDeals(List<DealItem> allDeals) {
-        // Create a list to store the best deals
-        List<DealItem> bestDeals = new ArrayList<>();
-
-        // Group deals by itemId and find the deal with the lowest price for each itemId
-        allDeals.stream()
-                .collect(Collectors.groupingBy(DealItem::getItemId))
-                .forEach((itemId, dealItems) -> {
-                    DealItem bestDeal = dealItems.stream()
-                            .min(Comparator.comparingDouble(DealItem::getPrice))
-                            .orElse(null);
-                    if (bestDeal != null) {
-                        bestDeals.add(bestDeal);
-                    }
-                });
-
-        // Display the best deals
-        bestDeals.forEach(deal -> 
-            System.out.println("Best deal for itemId " + deal.getItemId() + ": " + deal.getPrice())
-        );
-
-        // Return the list of best deals
-        return bestDeals;
+        // Find the best deal for each productTitle using Comparators
+        return allDeals.stream()
+                .collect(Collectors.groupingBy(DealItem::getProductTitle))  // Group by productTitle
+                .values()
+                .stream()
+                .map(dealItems -> dealItems.stream()
+                        .min(Comparator.comparingDouble(DealItem::getPrice))  // Find the deal with the lowest price
+                        .orElse(null))  // Handle case where the list might be empty
+                .filter(Objects::nonNull)  // Remove any nulls that might occur
+                .collect(Collectors.toList());  // Collect the best deals into a list
     }
+
+
+
+
+
+//    private List<DealItem> findBestDealsOld(List<DealItem> allDeals) {
+//        // Create a list to store the best deals
+//        List<DealItem> bestDeals = new ArrayList<>();
+//
+//        // Group deals by itemId and find the deal with the lowest price for each itemId
+//        allDeals.stream()
+//                .collect(Collectors.groupingBy(DealItem::getItemId))
+//                .forEach((itemId, dealItems) -> {
+//                    DealItem bestDeal = dealItems.stream()
+//                            .min(Comparator.comparingDouble(DealItem::getPrice))
+//                            .orElse(null);
+//                    System.out.println("\n\n");
+//                    System.out.println("Best deal is:");
+//                    System.out.println(bestDeal.toString());
+//                    if (bestDeal != null) {
+//                        bestDeals.add(bestDeal);
+//                    }
+//                });
+//
+//        // Display the best deals
+//        bestDeals.forEach(deal -> 
+//            System.out.println("Best deal for itemId " + deal.getItemId() + ": " + deal.getPrice())
+//        );
+//
+//        // Return the list of best deals
+//        return bestDeals;
+//    }
 
 
 
