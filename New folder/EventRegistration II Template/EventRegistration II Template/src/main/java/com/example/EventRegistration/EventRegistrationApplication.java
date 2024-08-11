@@ -12,11 +12,11 @@ public class EventRegistrationApplication {
 		Scanner scanner = new Scanner(System.in);
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		// Take the college bean from application context.
-		College college = ;
+		College college = (College) context.getBean("college");
 		// Print the college name in the below print statement.
-		System.out.println("Welcome to the Graduation Ceremony Registration Application for " + /* print college name here */);
+		System.out.println("Welcome to the Graduation Ceremony Registration Application for " + college.getCollegeName()/* print college name here */);
 		//Get the college event bean from the college bean.
-		CollegeEvent event = ;
+		CollegeEvent event=college.getEvent();
 		event.printEventDetails();
 		while (true) {
 			System.out.println("Do you want to register for the ceremony\n1. Yes\n2. No");

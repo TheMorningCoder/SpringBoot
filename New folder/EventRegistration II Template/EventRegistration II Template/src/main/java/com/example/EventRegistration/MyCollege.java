@@ -1,6 +1,24 @@
 package com.example.EventRegistration;
 
-public class MyCollege {
+public class MyCollege implements College{
+	String collegeName="NPGC";
+	CollegeEvent event;
+
+	@Override
+	public String getCollegeName() {
+		return this.collegeName;
+	}
+
+	@Override
+	public CollegeEvent getEvent() {
+		return event;
+	}
+	
+	public void setEvent(CollegeEvent event) {
+        this.event = event;
+	}
+
+	
 
     /*
         1. Create attribute name (string) and initialize it with some default name.
