@@ -19,6 +19,12 @@ import java.util.List;
 public class myUser implements User{
 	String name;
 	List<Account> accountList=new ArrayList<Account>();
+	public void init() {
+		System.out.println("User bean has been instantiated and I'm in the init() method");
+	}
+	public void destroy() {
+		System.out.println("User bean has been closed and I'm in the destroy() method");
+	}
 
 	@Override
 	public void setUserDetails(String name) {

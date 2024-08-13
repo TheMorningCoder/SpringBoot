@@ -15,6 +15,9 @@ package com.codingNinjas.Bank.Account.Registration;
 
 	public class currentAccount implements Account{
 	double amount;
+	public void init() {
+		System.out.println("Current Account has been created and I'm in the init() method");
+	}
 
 	@Override
 	public String getAccountType() {

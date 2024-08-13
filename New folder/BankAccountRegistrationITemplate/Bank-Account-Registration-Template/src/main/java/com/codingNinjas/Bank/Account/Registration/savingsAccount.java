@@ -14,6 +14,10 @@ package com.codingNinjas.Bank.Account.Registration;
 
 public class savingsAccount implements Account{
 	double amount;
+	
+	public void init() {
+		System.out.println("Savings Account has been created and I'm in the init() method");
+	}
 
 	@Override
 	public String getAccountType() {
