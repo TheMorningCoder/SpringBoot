@@ -7,6 +7,16 @@ resilience4j:
         ringBufferSizeInClosedState: 5
         ringBufferSizeInHalfOpenState: 2
         waitDurationInOpenState: 10s
-        failureRateThreshold: 50  
-  
-
+        failureRateThreshold: 50
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 2s
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+  retry:
+    instances:
+      service2:
+        maxAttempts: 5
+        waitDuration: 1s
+        retryExceptions:
+          - java.net.ConnectException
+          - java.net.SocketTimeoutException
