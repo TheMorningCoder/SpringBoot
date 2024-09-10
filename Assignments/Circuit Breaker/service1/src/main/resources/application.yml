@@ -6,9 +6,7 @@ resilience4j:
         registerHealthIndicator: true
         ringBufferSizeInClosedState: 5
         ringBufferSizeInHalfOpenState: 2
-        waitDurationInOpenState: 60s
-  retry:
-    instances:
-      service2:
-        maxAttempts: 5
-        waitDuration: 1s
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50  
+  
+
