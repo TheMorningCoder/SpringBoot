@@ -1,0 +1,14 @@
+# Adding Resilience4j configuration for circuit breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      service2:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 5
+        ringBufferSizeInHalfOpenState: 2
+        waitDurationInOpenState: 60s
+  retry:
+    instances:
+      service2:
+        maxAttempts: 5
+        waitDuration: 1s
