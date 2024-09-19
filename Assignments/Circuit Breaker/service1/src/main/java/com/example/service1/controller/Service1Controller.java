@@ -3,9 +3,11 @@ package com.example.service1.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -26,7 +28,7 @@ public class Service1Controller {
 
     // Single async call to service 2
     @GetMapping("/asyncMessage")
-    @CircuitBreaker(name = "service2", fallbackMethod = "fallbackResponse")
+//    @CircuitBreaker(name = "service2", fallbackMethod = "fallbackResponse")
     public CompletableFuture<String> getMessageAsync() {
         log.info("Inside getMessageAsync method.");
         return CompletableFuture.supplyAsync(this::callService2);
@@ -51,25 +53,25 @@ public class Service1Controller {
     // Helper method to call service2
     private String callService2() {
         log.info("Inside callService2 method.");
-        return restTemplate.getForObject("http://localhost:8082/service2/message", String.class);
+        try {
+            return restTemplate.getForObject("http://localhost:8082/service2/message", String.class);
+        } catch (Exception e) {
+        	log.error("Service 2 returned a 500 Internal Server Error");
+            return "Service 2 is down (500 Internal Server Error). Please try again later.";
+        }
     }
 
     // Generic Fallback method for all exceptions
     public String fallbackResponse(Throwable t) {
-    	System.out.println("\n\n\nInside fallbackResponse()function\n\n\n");
         log.error("Fallback triggered. Error: {}", t.getMessage());
-        return "Service 2 is down. Please try again later.";
+        return "Service is currently down. Please try again later.";
     }
 
     // Fallback method for multiple async calls
     public CompletableFuture<List<String>> fallbackResponseForMultiple(Throwable t) {
-    	System.out.println("\n\n\nInside fallbackResponse()function\n\n\n");
         log.error("Fallback triggered for multiple requests. Error: {}", t.getMessage());
         return CompletableFuture.supplyAsync(() -> 
-            List.of("Service 2 is down. Please try again later.")
+            List.of("Service is currently down. Please try again later.")
         );
     }
 }
-
-
-
