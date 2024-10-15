@@ -26,6 +26,7 @@ public class SeatBookingController {
         List<Seat> availableSeats = seatBookingService.getAvailableSeats();
         return ResponseEntity.ok(availableSeats);
     }
+    
 
     // POST: Book seats
     @PostMapping("/book")
