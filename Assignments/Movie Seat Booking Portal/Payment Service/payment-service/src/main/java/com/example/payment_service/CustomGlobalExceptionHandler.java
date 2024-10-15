@@ -1,4 +1,4 @@
-package com.example.seat_booking_service.exception;
+package com.example.payment_service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
