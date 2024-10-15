@@ -1,0 +1,136 @@
+SELECT b.customer_customer_id, COUNT(bs.seats_seat_id) AS total_seats_booked
+FROM booking b
+JOIN booking_seats bs ON b.booking_id = bs.booking_booking_id
+WHERE b.customer_customer_id = 8 
+GROUP BY b.customer_customer_id;
+
+
+
+
+
+
+
+
+INSERT INTO Customer (name, email) VALUES
+('Naman', 'naman.23@gmail.com'),
+('Pawan', 'pawan.singh@gmail.com'),
+('Dheeraj', 'dheeraj.45@gmail.com'),
+('Rahul', 'rahul.sharma@gmail.com'),
+('Priya', 'priya.verma@gmail.com'),
+('Anjali', 'anjali.patel@gmail.com'),
+('Vikram', 'vikram.mishra@gmail.com'),
+('Sneha', 'sneha.gupta@gmail.com'),
+('Amit', 'amit.kumar@gmail.com'),
+('Neha', 'neha.agarwal@gmail.com'),
+('Karan', 'karan.jain@gmail.com'),
+('Riya', 'riya.bansal@gmail.com'),
+('Suresh', 'suresh.yadav@gmail.com'),
+('Komal', 'komal.saxena@gmail.com'),
+('Ajay', 'ajay.dixit@gmail.com'),
+('Sonia', 'sonia.pandey@gmail.com'),
+('Rohit', 'rohit.singh@gmail.com'),
+('Tina', 'tina.bhagat@gmail.com'),
+('Arjun', 'arjun.singh@gmail.com'),
+('Aisha', 'aisha.shah@gmail.com'),
+('Mohit', 'mohit.verma@gmail.com'),
+('Ritika', 'ritika.mishra@gmail.com'),
+('Deepak', 'deepak.garg@gmail.com'),
+('Geeta', 'geeta.sharma@gmail.com'),
+('Shivam', 'shivam.singh@gmail.com'),
+('Kavita', 'kavita.patel@gmail.com'),
+('Nitin', 'nitin.kumar@gmail.com'),
+('Manisha', 'manisha.agarwal@gmail.com'),
+('Vishal', 'vishal.yadav@gmail.com'),
+('Anita', 'anita.das@gmail.com'),
+('Tarun', 'tarun.gupta@gmail.com'),
+('Poonam', 'poonam.bansal@gmail.com'),
+('Gaurav', 'gaurav.jain@gmail.com'),
+('Sakshi', 'sakshi.gupta@gmail.com'),
+('Ashok', 'ashok.kumar@gmail.com'),
+('Neelam', 'neelam.singh@gmail.com'),
+('Ishaan', 'ishaan.mishra@gmail.com'),
+('Tanya', 'tanya.agarwal@gmail.com'),
+('Vivek', 'vivek.yadav@gmail.com'),
+('Aarti', 'aarti.pandey@gmail.com'),
+('Nikhil', 'nikhil.kumar@gmail.com'),
+('Divya', 'divya.sharma@gmail.com'),
+('Sanjay', 'sanjay.dixit@gmail.com'),
+('Meera', 'meera.verma@gmail.com'),
+('Raghav', 'raghav.garg@gmail.com'),
+('Lavanya', 'lavanya.singh@gmail.com'),
+('Rahul', 'rahul.yadav@gmail.com'),
+('Sakshi', 'sakshi.bansal@gmail.com'),
+('Tarun', 'tarun.patel@gmail.com'),
+('Komal', 'komal.shah@gmail.com'),
+('Parveen', 'parveen.mishra@gmail.com'),
+('Manoj', 'manoj.gupta@gmail.com'),
+('Sofia', 'sofia.khan@gmail.com'),
+('Kriti', 'kriti.pandey@gmail.com'),
+('Arvind', 'arvind.verma@gmail.com'),
+('Ankita', 'ankita.kumar@gmail.com'),
+('Kunal', 'kunal.jain@gmail.com'),
+('Salman', 'salman.singh@gmail.com'),
+('Meenal', 'meenal.patel@gmail.com'),
+('Arun', 'arun.garg@gmail.com'),
+('Rachna', 'rachna.mishra@gmail.com'),
+('Ashwini', 'ashwini.sharma@gmail.com'),
+('Sanjana', 'sanjana.pandey@gmail.com'),
+('Akash', 'akash.das@gmail.com');
+
+
+DESCRIBE seat;
+
+
+INSERT INTO Seat (seat_id, is_booked) VALUES
+('A1', TRUE),   -- Booked
+('A2', FALSE),
+('A3', TRUE),   -- Booked
+('A4', FALSE),
+('A5', FALSE),
+('A6', TRUE),   -- Booked
+('B1', FALSE),
+('B2', FALSE),
+('B3', FALSE),
+('B4', TRUE),   -- Booked
+('B5', FALSE),
+('B6', FALSE),
+('C1', FALSE),
+('C2', TRUE),   -- Booked
+('C3', FALSE),
+('C4', FALSE),
+('C5', FALSE),
+('C6', TRUE),   -- Booked
+('D1', FALSE),
+('D2', FALSE),
+('D3', TRUE),   -- Booked
+('D4', FALSE),
+('D5', FALSE),
+('D6', FALSE),
+('E1', FALSE),
+('E2', FALSE),
+('E3', FALSE),
+('E4', TRUE),   -- Booked
+('E5', FALSE),
+('E6', FALSE);
+
+INSERT INTO booking (booking_time, is_payment_confirmed, customer_customer_id) VALUES
+('2024-09-26 10:00:00', 1, 1),  -- Booking for customer ID 1 (Naman)
+('2024-09-26 11:00:00', 0, 2),  -- Booking for customer ID 2 (Pawan)
+('2024-09-26 12:00:00', 1, 3),  -- Booking for customer ID 3 (Dheeraj)
+('2024-09-26 13:00:00', 1, 1),  -- Another booking for customer ID 1
+('2024-09-26 14:00:00', 0, 2),  -- Another booking for customer ID 2
+('2024-09-26 15:00:00', 1, 3);  -- Another booking for customer ID 3
+
+INSERT INTO booking_seats (booking_booking_id, seats_seat_id) VALUES
+(1, 'A1'),  -- Naman's booking
+(1, 'A3'),  -- Naman's booking
+(2, 'B4'),  -- Pawan's booking
+(3, 'C2'),  -- Dheeraj's booking
+(3, 'D3'),  -- Dheeraj's booking
+(3, 'E4');  -- Dheeraj's booking
+
+
+
+
+
+

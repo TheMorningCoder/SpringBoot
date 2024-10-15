@@ -1,31 +1,47 @@
 package com.example.seat_booking_service.controller;
 
+import com.example.seat_booking_service.exception.CustomerNotFoundException;
+import com.example.seat_booking_service.exception.SeatAlreadyBookedException;
+import com.example.seat_booking_service.exception.SeatLimitExceededException;
 import com.example.seat_booking_service.model.Booking;
 import com.example.seat_booking_service.model.Seat;
 import com.example.seat_booking_service.service.SeatBookingService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/seat-booking")
+@RequestMapping("/seats")
+@RequiredArgsConstructor
 public class SeatBookingController {
 
-    @Autowired
-    private SeatBookingService seatBookingService;
+    private final SeatBookingService seatBookingService;
 
-    @GetMapping("/seats")
+    // GET: Fetch available seats
+    @GetMapping("/available")
     public ResponseEntity<List<Seat>> getAvailableSeats() {
-        List<Seat> seats = seatBookingService.getAvailableSeats();
-        return new ResponseEntity<>(seats, HttpStatus.OK);
+        List<Seat> availableSeats = seatBookingService.getAvailableSeats();
+        return ResponseEntity.ok(availableSeats);
     }
+    
 
+    // POST: Book seats
     @PostMapping("/book")
-    public ResponseEntity<Booking> bookSeats(@RequestBody Booking booking) {
-        Booking booked = seatBookingService.bookSeats(booking);
-        return new ResponseEntity<>(booked, HttpStatus.OK);
+    public ResponseEntity<?> bookSeats(@RequestParam Long customerId, @RequestBody List<String> seatIds) {
+        try {
+            Booking booking = seatBookingService.bookSeats(customerId, seatIds);
+            return ResponseEntity.ok(booking);
+        } catch (SeatAlreadyBookedException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (SeatLimitExceededException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (CustomerNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }catch (Exception e) {
+            return ResponseEntity.status(500).body("An error occurred while booking seats.");
+        }
     }
 }

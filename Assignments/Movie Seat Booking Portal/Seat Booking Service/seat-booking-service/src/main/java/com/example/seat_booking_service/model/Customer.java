@@ -3,15 +3,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Seat {
+public class Customer {
     @Id
-    private String seatId;   // e.g., "A1", "A2", etc.
-    private boolean isBooked = false; // Whether the seat is booked or not
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long customerId;
+    private String name;
+    private String email;
 }
-
