@@ -1,3 +1,16 @@
+SELECT b.customer_customer_id, COUNT(bs.seats_seat_id) AS total_seats_booked
+FROM booking b
+JOIN booking_seats bs ON b.booking_id = bs.booking_booking_id
+WHERE b.customer_customer_id = 8 
+GROUP BY b.customer_customer_id;
+
+
+
+
+
+
+
+
 INSERT INTO Customer (name, email) VALUES
 ('Naman', 'naman.23@gmail.com'),
 ('Pawan', 'pawan.singh@gmail.com'),
