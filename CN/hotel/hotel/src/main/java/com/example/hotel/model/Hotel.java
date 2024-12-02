@@ -1,0 +1,20 @@
+package com.example.hotel.model;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+
+public class Hotel {
+	int id;
+	String hotelName;
+	long hotelRating;
+	String cityName;
+}

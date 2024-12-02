@@ -2,23 +2,16 @@ package com.example.seat_booking_service.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-import jakarta.persistence.*;
-
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "seats")
 public class Seat {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
-    private String seatNumber;
-
-    @Column(nullable = false)
-    private boolean available;
+    private String seatId;   // e.g., "A1", "A2", etc.
+    private boolean isBooked = false; // Whether the seat is booked or not
 }
+
