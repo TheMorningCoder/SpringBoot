@@ -35,14 +35,26 @@ class UserCheckService {
     }
 
     public Mono<Boolean> isUserRegistered(String phoneNumber) {
-        return webClient.get()
-                        .uri(uriBuilder -> uriBuilder.path("/user/check")
-                                                     .queryParam("phoneNumber", phoneNumber)
-                                                     .build())
-                        .retrieve()
-                        .bodyToMono(UserCheckResponse.class)
-                        .map(UserCheckResponse::isRegistered)
-                        .onErrorReturn(false); // Return false in case of an error
+        // Build the URI with query parameters
+        String uri = webClient
+            .get()
+            .uri(uriBuilder -> uriBuilder
+                .path("/user/check")
+                .queryParam("phoneNumber", phoneNumber)
+                .build())
+            .toString();
+
+        // Perform the API call and retrieve the response as Mono<UserCheckResponse>
+        Mono<UserCheckResponse> responseMono = webClient.get()
+                                                       .uri(uri)
+                                                       .retrieve()
+                                                       .bodyToMono(UserCheckResponse.class);
+
+        // Extract the "registered" field from the response
+        Mono<Boolean> resultMono = responseMono.map(UserCheckResponse::isRegistered);
+
+        // Handle errors by returning false in case of an exception
+        return resultMono.onErrorReturn(false);
     }
 }
 
@@ -57,4 +69,3 @@ class UserCheckResponse {
         this.registered = registered;
     }
 }
-
